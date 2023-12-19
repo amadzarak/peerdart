@@ -107,8 +107,7 @@ class Negotiator<T extends BaseConnection> {
         final session = parse(offer.toMap()['sdp']);
         print(jsonEncode(session));
         print('------');
-        var params = parseParams(session['media'][1]['fmtp'][0]['config']);
-    print('params => ' + params.toString());
+       print(session['media']);
         print('------');
       }
 
