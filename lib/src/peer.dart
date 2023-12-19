@@ -296,6 +296,29 @@ class Peer extends StreamEventEmitter {
     return mediaConnection;
   }
 
+  MediaConnection vp8call(String peer, MediaStream stream, {CallOption? options}) {
+    if (disconnected) {
+      logger.warn(
+        "You cannot connect to a new Peer because you called .disconnect() on this Peer and ended your connection with the server. You can create a new Peer to reconnect.",
+      );
+      emitError(
+        PeerErrorType.Disconnected,
+        "Cannot connect to new Peer after disconnecting from server.",
+      );
+    }
+
+    PeerConnectOption organizedOptions = PeerConnectOption(stream: stream);
+
+    if (options != null) {
+      organizedOptions = organizedOptions.copyWith(
+          metadata: options.metadata, sdpTransform: options.sdpTransform);
+    }
+
+    final mediaConnection = MediaConnection(peer, this, organizedOptions);
+    _addConnection(peer, mediaConnection: mediaConnection);
+    return mediaConnection;
+  }
+
   void _abort(PeerErrorType type, dynamic message) {
     logger.error('Aborting!');
 

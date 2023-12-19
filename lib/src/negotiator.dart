@@ -100,6 +100,7 @@ class Negotiator<T extends BaseConnection> {
         offer =
             await peerConnection!.createOffer(connection.options!.constraints!);
       } else {
+        print('okay so creating offer here.')
         offer = await peerConnection!.createOffer();
       }
 
