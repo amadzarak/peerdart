@@ -4,7 +4,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:peerdart/src/baseconnection.dart';
 import 'package:peerdart/src/dataconnection.dart';
 import 'package:peerdart/src/option_interfaces.dart';
-
+import 'package:sdp_transform/sdp_transform.dart';
 import 'enums.dart';
 import 'logger.dart';
 import 'mediaconnection.dart';
@@ -103,6 +103,9 @@ class Negotiator<T extends BaseConnection> {
         print('okay so creating offer here.');
         offer = await peerConnection!.createOffer();
         print('IS THIS THE OFFER IWANT?? {offer.toMap()["sdp"]]}}');
+        final session = parse(offer.toMap()['sdp']);
+        print(jsonEncode(session));
+        
         print(offer.toMap()['sdp']);
       }
 
