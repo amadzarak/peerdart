@@ -102,6 +102,7 @@ class Negotiator<T extends BaseConnection> {
       } else {
         print('okay so creating offer here.');
         offer = await peerConnection!.createOffer();
+        print('IS THIS THE OFFER IWANT?? $offer');
       }
 
       logger.log("Created offer.");
