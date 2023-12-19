@@ -102,11 +102,14 @@ class Negotiator<T extends BaseConnection> {
       } else {
         print('okay so creating offer here.');
         offer = await peerConnection!.createOffer();
+        //TODO: SDP TRANSFORM
         print('IS THIS THE OFFER IWANT?? {offer.toMap()["sdp"]]}}');
         final session = parse(offer.toMap()['sdp']);
         print(jsonEncode(session));
-
-        print(offer.toMap()['sdp']);
+        print('------');
+        var params = parseParams(session['media'][1]['fmtp'][0]['config']);
+    print('params => ' + params.toString());
+        print('------');
       }
 
       logger.log("Created offer.");
