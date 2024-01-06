@@ -101,7 +101,7 @@ class Negotiator<T extends BaseConnection> {
             await peerConnection!.createOffer(connection.options!.constraints!);
       } else {
         print('okay so creating offer here.');
-        offer = await peerConnection!.createOffer();
+        offer = await peerConnection!.createAmadOffer();
         //TODO: SDP TRANSFORM
         print('IS THIS THE OFFER IWANT?? {offer.toMap()["sdp"]]}}');
         
@@ -347,3 +347,22 @@ class Negotiator<T extends BaseConnection> {
     }
   }
 }
+
+
+Future<RTCSessionDescription> createAmadOffer(
+      [Map<String, dynamic>? constraints]) async {
+        print('MAMAMAMAMAMAMAMAMAMAMAMAM');
+    try {
+      final response =
+          await WebRTC.invokeMethod('createOffer', <String, dynamic>{
+        'peerConnectionId': _peerConnectionId,
+        'constraints': constraints ?? defaultSdpConstraints
+      });
+
+      String sdp = response['sdp'];
+      String type = response['type'];
+      return RTCSessionDescription(sdp, type);
+    } on PlatformException catch (e) {
+      throw 'Unable to RTCPeerConnection::createOffer: ${e.message}';
+    }
+  }
