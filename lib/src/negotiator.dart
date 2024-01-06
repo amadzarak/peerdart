@@ -9,6 +9,25 @@ import 'enums.dart';
 import 'logger.dart';
 import 'mediaconnection.dart';
 
+
+Future<RTCSessionDescription> createAmadOffer(
+      [Map<String, dynamic>? constraints]) async {
+        print('MAMAMAMAMAMAMAMAMAMAMAMAM');
+    try {
+      final response =
+          await WebRTC.invokeMethod('createOffer', <String, dynamic>{
+        'peerConnectionId': _peerConnectionId,
+        'constraints': constraints ?? defaultSdpConstraints
+      });
+
+      String sdp = response['sdp'];
+      String type = response['type'];
+      return RTCSessionDescription(sdp, type);
+    } on PlatformException catch (e) {
+      throw 'Unable to RTCPeerConnection::createOffer: ${e.message}';
+    }
+  }
+  
 class Negotiator<T extends BaseConnection> {
   T connection;
   Negotiator(this.connection);
@@ -348,21 +367,3 @@ class Negotiator<T extends BaseConnection> {
   }
 }
 
-
-Future<RTCSessionDescription> createAmadOffer(
-      [Map<String, dynamic>? constraints]) async {
-        print('MAMAMAMAMAMAMAMAMAMAMAMAM');
-    try {
-      final response =
-          await WebRTC.invokeMethod('createOffer', <String, dynamic>{
-        'peerConnectionId': _peerConnectionId,
-        'constraints': constraints ?? defaultSdpConstraints
-      });
-
-      String sdp = response['sdp'];
-      String type = response['type'];
-      return RTCSessionDescription(sdp, type);
-    } on PlatformException catch (e) {
-      throw 'Unable to RTCPeerConnection::createOffer: ${e.message}';
-    }
-  }
