@@ -104,12 +104,10 @@ class Negotiator<T extends BaseConnection> {
         offer = await peerConnection!.createOffer();
         //TODO: SDP TRANSFORM
         print('IS THIS THE OFFER IWANT?? {offer.toMap()["sdp"]]}}');
+        
         final session = parse(offer.toMap()['sdp']);
-        print(jsonEncode(session));
-        print('------');
-       print(session['media']);
-       print(session['payloads']);
-        print('------');
+        print(session);
+        
       }
 
       logger.log("Created offer.");
