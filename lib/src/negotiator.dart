@@ -105,7 +105,7 @@ class Negotiator<T extends BaseConnection> {
         //TODO: SDP TRANSFORM
         print('IS THIS THE OFFER IWANT?? {offer.toMap()["sdp"]]}}');
         
-        final session = parse(offer.toMap()['sdp']);
+        final session = offer.toMap()['sdp'];
         print(session);
         
       }
