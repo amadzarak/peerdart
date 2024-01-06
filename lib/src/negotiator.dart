@@ -108,6 +108,7 @@ class Negotiator<T extends BaseConnection> {
         print(jsonEncode(session));
         print('------');
        print(session['media']);
+       print(session['payloads']);
         print('------');
       }
 
