@@ -47,12 +47,20 @@ Future<String> forceVP8(String sdpHere) async {
 
   print(h264first);
   print(vp8present);
+
   if (h264first == true && vp8present == true) {
     print('flip flopping h264 and vp8');
     //list not changing value
-    print(mediaDescription[3]);
-    mediaDescription[3] = sdpDefinedCodecs['VP8'];
-    mediaDescription[3 + vp8Index] = sdpDefinedCodecs['H264'];
+
+    for (int x = 3; x < mediaDescription.length; x++) {
+      print(sdpDefinedCodecs[mediaDescription[x]]);
+      if (sdpDefinedCodecs[mediaDescription[x]] == 'VP8') {
+        var tmp = mediaDescription[3];
+        mediaDescription[3] = mediaDescription[x];
+        mediaDescription[x] = tmp;
+      }
+    }
+
     print('new mediaScription');
     print(mediaDescription.join(' '));
 
@@ -63,6 +71,7 @@ Future<String> forceVP8(String sdpHere) async {
 
   //return x.join('\n');
 }
+
 
 int getVideoLineIndex(List<String> sdp) {
   RegExp findVideoLine = RegExp(r'm=video+');
