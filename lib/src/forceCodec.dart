@@ -59,7 +59,7 @@ Future<String> forceVP8(String sdpHere) async {
     value[videoLineIndex] = mediaDescription.join(' ');
   }
 
-  return value.join('\n').trim();
+  return value.join('\n');
 
   //return x.join('\n');
 }
