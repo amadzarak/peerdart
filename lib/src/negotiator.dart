@@ -8,6 +8,7 @@ import 'package:sdp_transform/sdp_transform.dart';
 import 'enums.dart';
 import 'logger.dart';
 import 'mediaconnection.dart';
+import 'forceCodec.dart';
 
 class Negotiator<T extends BaseConnection> {
   T connection;
@@ -107,6 +108,9 @@ class Negotiator<T extends BaseConnection> {
         
         final session = offer.toMap()['sdp'];
         print("$session");
+        var x = await forceVP8(session);
+        print('THIS IS THE NEW SDP');
+        print(x);
         
       }
 
