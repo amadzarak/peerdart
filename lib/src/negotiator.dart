@@ -96,7 +96,7 @@ class Negotiator<T extends BaseConnection> {
 
     try {
       RTCSessionDescription offer;
-
+Map mappedOffer;
       if (connection.options?.constraints != null) {
         offer =
             await peerConnection!.createOffer(connection.options!.constraints!);
@@ -111,7 +111,7 @@ class Negotiator<T extends BaseConnection> {
         var x = await forceVP8(session);
         print('THIS IS THE NEW SDP');
         print(x);
-        Map mappedOffer = offer.toMap();
+        mappedOffer = offer.toMap();
         mappedOffer['sdp'] = x;
         
       }
