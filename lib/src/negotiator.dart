@@ -96,10 +96,12 @@ class Negotiator<T extends BaseConnection> {
 
     try {
       RTCSessionDescription offer;
-Map mappedOffer;
+      Map mappedOffer;
       if (connection.options?.constraints != null) {
         offer =
             await peerConnection!.createOffer(connection.options!.constraints!);
+
+        mappedOffer = offer.toMap();
       } else {
         print('okay so creating offer here.');
         offer = await peerConnection!.createOffer();
