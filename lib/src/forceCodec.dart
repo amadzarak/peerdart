@@ -26,19 +26,19 @@ Future<String> forceVP8(String sdpHere) async {
       //print(value[i]);
       //print(matchCodec.stringMatch(value[i]));
       //print(extractCodecName.stringMatch(value[i]));
-      sdpDefinedCodecs[extractCodecName.stringMatch(value[i])] =
-          matchCodec.stringMatch(value[i]);
+      sdpDefinedCodecs[matchCodec.stringMatch(value[i])] =
+          extractCodecName.stringMatch(value[i]);
     }
   }
   print(sdpDefinedCodecs);
 
   int vp8Index = -1;
-  if (sdpDefinedCodecs['H264'] == codecs[0]) {
+  if (sdpDefinedCodecs[codecs[0]] == 'H264') {
     h264first = true;
   }
 
   for (int idx = 0; idx < codecs.length; idx++) {
-    if (sdpDefinedCodecs['VP8'] == codecs[idx]) {
+    if (sdpDefinedCodecs[codecs[idx]] == 'VP8') {
       vp8present = true;
       print('vp8 is present');
       vp8Index = idx;
@@ -47,7 +47,6 @@ Future<String> forceVP8(String sdpHere) async {
 
   print(h264first);
   print(vp8present);
-
   if (h264first == true && vp8present == true) {
     print('flip flopping h264 and vp8');
     //list not changing value
@@ -67,7 +66,7 @@ Future<String> forceVP8(String sdpHere) async {
     value[videoLineIndex] = mediaDescription.join(' ');
   }
 
-  return value.join('\n');
+  return value.join('\n').trim();
 
   //return x.join('\n');
 }
