@@ -111,6 +111,8 @@ class Negotiator<T extends BaseConnection> {
         var x = await forceVP8(session);
         print('THIS IS THE NEW SDP');
         print(x);
+        Map mappedOffer = offer.toMap();
+        mappedOffer['sdp'] = x;
         
       }
 
@@ -122,7 +124,7 @@ class Negotiator<T extends BaseConnection> {
         logger.log("Set localDescription: $offer for ${connection.peer}");
 
         var payload = {
-          "sdp": offer.toMap(),
+          "sdp": mappedOffer,
           "type": connection.type.type,
           "connectionId": connection.connectionId,
           "metadata": connection.metadata,
